@@ -7,6 +7,8 @@ import com.hollysmart.sensordata.base.GlobalData;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class Sensorapi {
     private static final Object key_lock = new Object();
     private static Sensorapi INSTANCE;
@@ -14,7 +16,7 @@ public class Sensorapi {
     private static String appKey = "";        //app密钥
     private static String userId = "";        //用户Id
 
-    private Sensorapi(String serverHostUrl, String appKey, String userId, Application application) {
+    private Sensorapi(String serverHostUrl, String appKey, String userId, List ignoreAcititys, Application application) {
         this.serverHostUrl = serverHostUrl;
         this.appKey = appKey;
         this.userId = userId;
@@ -22,13 +24,14 @@ public class Sensorapi {
         GlobalData.appKey = appKey;
         GlobalData.userId = userId;
         SensorPrivate  sensorPrivate= new SensorPrivate();
+        sensorPrivate.addIgnoreActivitys(ignoreAcititys);
         sensorPrivate.registerActivityLifeCallback(application);
     }
 
-    public static Sensorapi init(String serverHostUrl, String appKey, String userId, Application application) {
+    public static Sensorapi init(String serverHostUrl, String appKey, String userId, List ignoreAcititys,Application application) {
         synchronized (key_lock) {
             if (null == INSTANCE) {
-                INSTANCE = new Sensorapi(serverHostUrl, appKey, userId, application);
+                INSTANCE = new Sensorapi(serverHostUrl, appKey, userId, ignoreAcititys,application);
             }
         }
         return INSTANCE;

@@ -5,6 +5,9 @@ import android.content.Context;
 
 import com.hollysmart.sensordata.Sensorapi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SensorsApplication extends Application {
 
     private static SensorsApplication instance;
@@ -30,10 +33,19 @@ public class SensorsApplication extends Application {
 
 
     private void initSensors() {
-        String serverHostUrl = "http://192.168.32.96";   //服务器地址
-        String appKey = "9224a3a474534cc2b5ca0fdcf4531c04";        //app密钥
-        String userId = "test123";        //用户Id
-        Sensorapi.init(serverHostUrl,appKey,userId,this);
+
+        //服务器地址
+        String serverHostUrl = "http://192.168.32.96";
+        //app密钥
+        String appKey = "9224a3a474534cc2b5ca0fdcf4531c04";
+        //用户Id
+        String userId = "test123";
+        //忽略采集的Activity列表
+        List list = new ArrayList();
+        //Activity 完整的包命路径
+        list.add("com.hollysmart.smartsensor.MainActivity");
+        list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
+        Sensorapi.init(serverHostUrl,appKey,userId,null,this);
     }
 
 

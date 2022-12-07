@@ -32,7 +32,9 @@ import org.json.JSONObject;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +50,10 @@ public class SensorPrivate {
 
     // 记录所有的打开的activity类的列表
     private List list = new ArrayList();
+
+    //忽略不采集的Acivity
+    private Set<String> ignoreActivitys;
+
 
     //触发滑动监听距离px
     private float MOVE_DSITANCE = 50;
@@ -80,7 +86,7 @@ public class SensorPrivate {
     public SensorPrivate() {
 
         timer = new Timer();
-
+        ignoreActivitys = new HashSet<>();
         handler = new Handler() {
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -111,7 +117,7 @@ public class SensorPrivate {
 //            e.printStackTrace();
 //        }
         Log.v(TAG, "打开页面" + activity.getClass().getCanonicalName());
-        postSensorAction(activity,ACTION_OPEN);
+        postSensorAction(activity, ACTION_OPEN);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -137,7 +143,7 @@ public class SensorPrivate {
 //            e.printStackTrace();
 //        }
         Log.v(TAG, "关闭页面" + activity.getClass().getCanonicalName());
-        postSensorAction(activity,ACTION_CLOSE);
+        postSensorAction(activity, ACTION_CLOSE);
         cancelTimerTask();
     }
 
@@ -172,10 +178,12 @@ public class SensorPrivate {
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
                 lastMoveTime = new Timestamp(System.currentTimeMillis());
-                //滑动事件监听
-                Window window = activity.getWindow();
-                window.setCallback(new MonitorCalback(activity, activity.getWindow().getCallback()));
 
+                if (null != activity && !ignoreActivitys.contains(activity.getClass().getCanonicalName())) {
+                    //滑动事件监听
+                    Window window = activity.getWindow();
+                    window.setCallback(new MonitorCalback(activity, activity.getWindow().getCallback()));
+                }
             }
 
             @Override
@@ -184,8 +192,10 @@ public class SensorPrivate {
 
             @Override
             public void onActivityResumed(Activity activity) {
-                //APP页面进入（可见）
-                trackAppViewScreen(activity);
+                if (null != activity && !ignoreActivitys.contains(activity.getClass().getCanonicalName())) {
+                    //APP页面进入（可见）
+                    trackAppViewScreen(activity);
+                }
             }
 
             @Override
@@ -194,8 +204,10 @@ public class SensorPrivate {
 
             @Override
             public void onActivityStopped(Activity activity) {
-                //APP页面退出
-                trackAppViewScreenStop(activity);
+                if (null != activity && !ignoreActivitys.contains(activity.getClass().getCanonicalName())) {
+                    //APP页面退出
+                    trackAppViewScreenStop(activity);
+                }
             }
 
             @Override
@@ -303,7 +315,7 @@ public class SensorPrivate {
             public void run() {
                 Message message = new Message();
                 Log.v(TAG, "task1执行");
-                postSensorAction(activity,ACTION_DELAY);
+                postSensorAction(activity, ACTION_DELAY);
                 timer.schedule(timerTask_2, task_blank_2);
             }
         };
@@ -313,7 +325,7 @@ public class SensorPrivate {
             public void run() {
                 Message message = new Message();
                 Log.v(TAG, "task2执行");
-                postSensorAction(activity,ACTION_DELAY);
+                postSensorAction(activity, ACTION_DELAY);
                 timer.schedule(timerTask_3, task_blank_3);
             }
         };
@@ -322,7 +334,7 @@ public class SensorPrivate {
             public void run() {
                 Message message = new Message();
                 Log.v(TAG, "task3执行");
-                postSensorAction(activity,ACTION_DELAY);
+                postSensorAction(activity, ACTION_DELAY);
             }
         };
         timer.schedule(timerTask_1, task_blank_1);
@@ -344,7 +356,7 @@ public class SensorPrivate {
     }
 
 
-    private void postSensorAction(Activity activity,String action) {
+    private void postSensorAction(Activity activity, String action) {
 
 
         SensorData.DataInfo dataInfo = new SensorData.DataInfo();
@@ -369,7 +381,6 @@ public class SensorPrivate {
         dataInfo.setLanguage("zh-CN");
 
 
-
         //ActionAttachInfo
         SensorData.DataInfo.ActionAttachInfo actionAttachInfo = new SensorData.DataInfo.ActionAttachInfo();
         actionAttachInfo.setTime("1000");
@@ -390,7 +401,6 @@ public class SensorPrivate {
         //MenuInfo
         SensorData.DataInfo.MenuInfo menuInfo = new SensorData.DataInfo.MenuInfo();
         dataInfo.setMenu(menuInfo);
-
 
 
         //DeviceinfoInfo
@@ -463,10 +473,6 @@ public class SensorPrivate {
         @Override
 
         public boolean dispatchTouchEvent(MotionEvent event) {
-
-            //YOU WILL GET TOUCH EVENTS HERE>> USE AS required>>
-
-            Log.d("move", "move");
             activityMovedJudge(activity, event);
             return localCallback.dispatchTouchEvent(event);
 
@@ -645,4 +651,15 @@ public class SensorPrivate {
 
         }
     }
+
+
+    /**
+     * 添加忽略的Activity
+     * @param ignoreAcitivityList
+     */
+    public void addIgnoreActivitys(List ignoreAcitivityList) {
+        if(ignoreAcitivityList != null)
+        ignoreActivitys.addAll(ignoreAcitivityList);
+    }
+
 }
