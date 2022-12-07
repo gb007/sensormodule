@@ -62,7 +62,7 @@ public class SensorPrivate {
     private Timestamp lastMoveTime;
 
     /*滑动间隔时间*/
-    private final int DUPLICATE_TIME = 2000;
+    private final int DUPLICATE_TIME = 1000;
 
     private final long task_blank_1 = 0;
     private final long task_blank_2 = 2000;
