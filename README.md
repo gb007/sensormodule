@@ -43,7 +43,7 @@ dependencies {
 ### 3.2 Application中或者其他引用处初始化SensorModule配置
 
 ````
-    private fun initSensorModule(){
+    private void initSensorModule(){
     
         //服务器地址
         String serverHostUrl = "http://192.168.32.96";
@@ -53,10 +53,10 @@ dependencies {
         String userId = "test123";
         //忽略采集的Activity列表
         List list = new ArrayList();
-        //需要忽略的Activity 完整的包命路径
+        //Activity 完整的包命路径
         list.add("com.hollysmart.smartsensor.MainActivity");
         list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
-        Sensorapi.init(serverHostUrl,appKey,userId,list,this);
+        Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,list,this);
     }
 
 ````
