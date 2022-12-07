@@ -12,14 +12,17 @@ import java.util.List;
 public class Sensorapi {
     private static final Object key_lock = new Object();
     private static Sensorapi INSTANCE;
-    private static String serverHostUrl = "";   //服务器地址
-    private static String appKey = "";        //app密钥
-    private static String userId = "";        //用户Id
 
-    private Sensorapi(String serverHostUrl, String appKey, String userId, List ignoreAcititys, Application application) {
-        this.serverHostUrl = serverHostUrl;
-        this.appKey = appKey;
-        this.userId = userId;
+    /**
+     * 初始化用户行为采集
+     * @param serverHostUrl     上传行为数据的服务器地址
+     * @param appKey            app密钥
+     * @param userId            用户Id
+     * @param ignoreAcititys    忽略采集的Activity集合
+     * @param application
+     * @return
+     */
+    public void setSensorapiData(String serverHostUrl, String appKey, String userId, List ignoreAcititys, Application application) {
         GlobalData._SERVER_ADDRESS = serverHostUrl;
         GlobalData.appKey = appKey;
         GlobalData.userId = userId;
@@ -28,22 +31,14 @@ public class Sensorapi {
         sensorPrivate.registerActivityLifeCallback(application);
     }
 
-    public static Sensorapi init(String serverHostUrl, String appKey, String userId, List ignoreAcititys,Application application) {
+
+    public static Sensorapi getInstance() {
         synchronized (key_lock) {
             if (null == INSTANCE) {
-                INSTANCE = new Sensorapi(serverHostUrl, appKey, userId, ignoreAcititys,application);
+                INSTANCE = new Sensorapi();
             }
         }
         return INSTANCE;
     }
 
-    // 获取对象
-    public static Sensorapi getInstance() {
-        return INSTANCE;
-    }
-
-    // 最终监控的AppViewScreen(所有的activity对象)并且打印出他们的信息
-    public void track(String $AppViewScreen, JSONObject propertise) {
-        Log.e("zero", propertise.toString());
-    }
 }

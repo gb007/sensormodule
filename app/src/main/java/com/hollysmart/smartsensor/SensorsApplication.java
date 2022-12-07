@@ -45,7 +45,7 @@ public class SensorsApplication extends Application {
         //Activity 完整的包命路径
         list.add("com.hollysmart.smartsensor.MainActivity");
         list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
-        Sensorapi.init(serverHostUrl,appKey,userId,null,this);
+        Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,list,this);
     }
 
 

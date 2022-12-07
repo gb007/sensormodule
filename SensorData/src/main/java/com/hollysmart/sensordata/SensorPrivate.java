@@ -105,17 +105,6 @@ public class SensorPrivate {
      */
     public void trackAppViewScreen(Activity activity) {
 
-//        try {
-//            // 判断hashcode，然后进行防止重复记录（看需求）
-//            if (null != activity && !list.contains(activity.getClass().hashCode())) {
-//                JSONObject propertise = new JSONObject();
-//                propertise.put("$activity", activity.getClass().getCanonicalName());
-//
-//                Sensorapi.getInstance().track("$AppViewScreen", propertise);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         Log.v(TAG, "打开页面" + activity.getClass().getCanonicalName());
         postSensorAction(activity, ACTION_OPEN);
         handler.postDelayed(new Runnable() {
@@ -132,16 +121,6 @@ public class SensorPrivate {
      * @param activity
      */
     public void trackAppViewScreenStop(Activity activity) {
-//        try {
-//            // 判断hashcode，然后进行防止重复记录（看需求）
-//            if (null != activity && !list.contains(activity.getClass().hashCode())) {
-//                JSONObject propertise = new JSONObject();
-//                propertise.put("$activity", activity.getClass().getCanonicalName());
-//                Sensorapi.getInstance().track("$AppViewScreen", propertise);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         Log.v(TAG, "关闭页面" + activity.getClass().getCanonicalName());
         postSensorAction(activity, ACTION_CLOSE);
         cancelTimerTask();
@@ -153,16 +132,6 @@ public class SensorPrivate {
      * @param activity
      */
     public void trackAppViewScreenMoved(Activity activity) {
-//        try {
-//            // 判断hashcode，然后进行防止重复记录（看需求）
-//            if (null != activity && !list.contains(activity.getClass().hashCode())) {
-//                JSONObject propertise = new JSONObject();
-//                propertise.put("$activity", activity.getClass().getCanonicalName());
-//                Sensorapi.getInstance().track("$AppViewScreen", propertise);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         Log.v(TAG, "滑动页面" + activity.getClass().getCanonicalName());
         resetTimerTask(activity);
     }
@@ -355,7 +324,11 @@ public class SensorPrivate {
             timerTask_3.cancel();
     }
 
-
+    /**
+     * 发送用户行为到服务器
+     * @param activity
+     * @param action 行为 "$launch"打开页面  "$close"关闭页面   "$delay"停留浏览
+     */
     private void postSensorAction(Activity activity, String action) {
 
 
@@ -435,9 +408,7 @@ public class SensorPrivate {
         SensorData sensorData = new SensorData();
         sensorData.setData(dataInfos);
 
-        String testData = new Gson().toJson(sensorData);
-
-
+//        String testData = new Gson().toJson(sensorData);
         PostSensorsDataUtil.postSensorData(new Gson().toJson(sensorData));
     }
 
@@ -655,7 +626,7 @@ public class SensorPrivate {
 
     /**
      * 添加忽略的Activity
-     * @param ignoreAcitivityList
+     * @param ignoreAcitivityList 忽略的Activity完整的包名路径List集合
      */
     public void addIgnoreActivitys(List ignoreAcitivityList) {
         if(ignoreAcitivityList != null)
