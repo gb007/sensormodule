@@ -24,7 +24,23 @@ dependencies {
 
 ## 3.初始化配置信息
 
-### 3.1 Application中或者其他引用处初始化SensorModule配置
+
+### 3.1 Manifest中添加网络相关权限
+
+````
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!--用于访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+````
+
+
+### 3.2 Application中或者其他引用处初始化SensorModule配置
 
 ````
     private fun initSensorModule(){
