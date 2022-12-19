@@ -51,12 +51,26 @@ dependencies {
         String appKey = "9224a3a474534cc2b5ca0fdcf4531c04";
         //用户Id
         String userId = "test123";
+        //用户名
+        String userName = "李鸿忠";
         //忽略采集的Activity列表
         List list = new ArrayList();
         //Activity 完整的包命路径
-        list.add("com.hollysmart.smartsensor.MainActivity");
-        list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
-        Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,list,this);
+//        list.add("com.hollysmart.smartsensor.MainActivity");
+//        list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
+        Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,userName,list,this);
+    }
+
+````
+
+### 3.3 设置moduleId,在需要检测的Activity的onCreat() 方法中设置页面所属moduleId
+
+````
+     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test_scroll_view);
+        //moduleId为后台提供,每个Activity都有对应的moduleId
+        Sensorapi.getInstance().setModuleId("1577579828644286465");
     }
 
 ````
