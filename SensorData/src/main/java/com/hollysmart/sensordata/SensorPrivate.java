@@ -367,8 +367,6 @@ public class SensorPrivate {
         SensorData.DataInfo.UserinfoInfo userinfoInfo = new SensorData.DataInfo.UserinfoInfo();
         userinfoInfo.setUserId(GlobalData.userId);
         userinfoInfo.setUserName(GlobalData.userName);
-        //TODO
-        userinfoInfo.setUserName("");
         dataInfo.setUserinfo(userinfoInfo);
 
 
