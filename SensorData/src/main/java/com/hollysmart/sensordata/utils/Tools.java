@@ -119,6 +119,12 @@ public class Tools {
         return dateFormat.format(new Date(times));
     }
 
+    public static String yyyy_MM_DD_HH_mm_format(long times) {
+        String formatString = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
+        return dateFormat.format(new Date(times));
+    }
+
 
     /**
      * 只能输入中文的判断

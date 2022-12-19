@@ -337,7 +337,7 @@ public class SensorPrivate {
         dataInfo.setPlatform("PC");
         dataInfo.setModule("WEB");
         dataInfo.setSession("");
-        dataInfo.setTime(Tools.yyyy_MM_DD_HH_mm_format_forcrash(System.currentTimeMillis()));
+        dataInfo.setTime(Tools.yyyy_MM_DD_HH_mm_format(System.currentTimeMillis()));
         dataInfo.setAction(action);
 
         //moduleId
