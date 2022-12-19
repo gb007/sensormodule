@@ -40,12 +40,14 @@ public class SensorsApplication extends Application {
         String appKey = "9224a3a474534cc2b5ca0fdcf4531c04";
         //用户Id
         String userId = "1588084160369565694";
+        //
+        String userName = "李鸿忠";
         //忽略采集的Activity列表
         List list = new ArrayList();
         //Activity 完整的包命路径
 //        list.add("com.hollysmart.smartsensor.MainActivity");
 //        list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
-        Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,list,this);
+        Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,userName,list,this);
     }
 
 

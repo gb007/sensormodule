@@ -18,14 +18,16 @@ public class Sensorapi {
      * @param serverHostUrl     上传行为数据的服务器地址
      * @param appKey            app密钥
      * @param userId            用户Id
+     * @param userName          用户姓名
      * @param ignoreAcititys    忽略采集的Activity集合
      * @param application
      * @return
      */
-    public void setSensorapiData(String serverHostUrl, String appKey, String userId, List ignoreAcititys, Application application) {
+    public void setSensorapiData(String serverHostUrl, String appKey, String userId,String userName, List ignoreAcititys, Application application) {
         GlobalData._SERVER_ADDRESS = serverHostUrl;
         GlobalData.appKey = appKey;
         GlobalData.userId = userId;
+        GlobalData.userName = userName;
         SensorPrivate  sensorPrivate= new SensorPrivate();
         sensorPrivate.addIgnoreActivitys(ignoreAcititys);
         sensorPrivate.registerActivityLifeCallback(application);
