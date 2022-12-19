@@ -31,6 +31,13 @@ public class Sensorapi {
         sensorPrivate.registerActivityLifeCallback(application);
     }
 
+    /**
+     * 埋点页面的menuId
+     */
+    public void setModuleId(String moduleId){
+        GlobalData.moduleId = moduleId;
+    }
+
 
     public static Sensorapi getInstance() {
         synchronized (key_lock) {

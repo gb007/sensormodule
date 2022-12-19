@@ -340,8 +340,8 @@ public class SensorPrivate {
         dataInfo.setTime(Tools.yyyy_MM_DD_HH_mm_format_forcrash(System.currentTimeMillis()));
         dataInfo.setAction(action);
 
-        //menuId
-        dataInfo.setModuleId("");
+        //moduleId
+        dataInfo.setModuleId(GlobalData.moduleId);
 
         dataInfo.setAppkey(GlobalData.appKey);
         dataInfo.setPage(activity.getClass().getCanonicalName());

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hollysmart.sensordata.Sensorapi;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_ry ,tv_sv;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Sensorapi.getInstance().setModuleId("1572184530");
         iniView();
     }
 

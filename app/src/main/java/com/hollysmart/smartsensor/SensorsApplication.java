@@ -35,16 +35,16 @@ public class SensorsApplication extends Application {
     private void initSensors() {
 
         //服务器地址
-        String serverHostUrl = "http://192.168.32.96";
+        String serverHostUrl = "http://192.168.32.95";
         //app密钥
         String appKey = "9224a3a474534cc2b5ca0fdcf4531c04";
         //用户Id
-        String userId = "test123";
+        String userId = "1588084160369565694";
         //忽略采集的Activity列表
         List list = new ArrayList();
         //Activity 完整的包命路径
-        list.add("com.hollysmart.smartsensor.MainActivity");
-        list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
+//        list.add("com.hollysmart.smartsensor.MainActivity");
+//        list.add("com.hollysmart.smartsensor.TestRecycleViewActivity");
         Sensorapi.getInstance().setSensorapiData(serverHostUrl,appKey,userId,list,this);
     }
 

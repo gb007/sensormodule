@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.hollysmart.sensordata.Sensorapi;
 import com.hollysmart.smartsensor.adapter.FruitAdapter;
 import com.hollysmart.smartsensor.bean.Fruit;
 
@@ -20,6 +21,7 @@ public class TestRecycleViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_recycle_view);
+        Sensorapi.getInstance().setModuleId("1577579264862720001");
         initFruitList();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

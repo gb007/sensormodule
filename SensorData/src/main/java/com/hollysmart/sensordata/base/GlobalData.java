@@ -9,4 +9,5 @@ public class GlobalData {
     public static  String _SERVER_ADDRESS = "http://127.0.0.1";
     public static  String appKey = "";
     public static  String userId = "";
+    public static  String moduleId = "";
 }
