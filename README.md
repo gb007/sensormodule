@@ -53,7 +53,7 @@ dependencies {
         String userId = "test123";
         //用户名
         String userName = "李鸿忠";
-        //忽略采集的Activity列表
+        //忽略采集的Activity列表,不需要采集的Activty页面必须设置忽略！！！否则会出现统计错误
         List list = new ArrayList();
         //Activity 完整的包命路径
 //        list.add("com.hollysmart.smartsensor.MainActivity");
@@ -73,4 +73,18 @@ dependencies {
         Sensorapi.getInstance().setModuleId("1577579828644286465");
     }
 
+````
+
+### 3.4 使用注意，由于埋点为全局埋点，所以务必要把不统计的Activity页面moduleId设为空，或者在配置忽略List是把不统计的Acitivty添加进去，否则就是发生统计错误！
+ 
+
+````
+      protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test_scroll_view);
+        //不需要统计的页面 moduleId设置为空
+        Sensorapi.getInstance().setModuleId("");
+    }
+ 
+   
 ````
