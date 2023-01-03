@@ -378,7 +378,7 @@ public class SensorPrivate {
         //DeviceinfoInfo
         SensorData.DataInfo.DeviceinfoInfo deviceinfoInfo = new SensorData.DataInfo.DeviceinfoInfo();
         deviceinfoInfo.setOsVersion("");
-        deviceinfoInfo.setDeviceType("Mobile");
+        deviceinfoInfo.setDeviceType("PC");
         deviceinfoInfo.setBrowser("");
         deviceinfoInfo.setBrowserVersion("");
         deviceinfoInfo.setBrowserEngine("");
