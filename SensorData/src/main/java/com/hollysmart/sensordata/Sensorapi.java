@@ -41,6 +41,15 @@ public class Sensorapi {
     }
 
 
+    /**
+     * 设置用户信息
+     */
+    public void setUserInfo(String userId,String userName){
+        GlobalData.userId = userId;
+        GlobalData.userName = userName;
+    }
+
+
     public static Sensorapi getInstance() {
         synchronized (key_lock) {
             if (null == INSTANCE) {
